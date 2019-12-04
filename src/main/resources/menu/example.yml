@@ -1,0 +1,227 @@
+#------------------------------------------------|
+#  ___             _ _            ___ _   _ ___  |
+# | _ \_ _ ___  __| (_)__ _ _  _ / __| | | |_ _| |
+# |  _/ '_/ _ \/ _` | / _` | || | (_ | |_| || |  |
+# |_| |_| \___/\__,_|_\__, |\_, |\___|\___/|___| |
+#                     |___/ |__/                 |
+#                                                |
+#                 Created by cocoraid            |
+#------------------------------------------------|
+
+# Texture head | How to use ?
+# You can use this website: https://minecraft-heads.com/custom/search?searchword=arrow
+# or this one: https://freshcoal.com/search.php
+# select your head and copy the texture
+# you should get something like this:
+# eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJmOTEwYzQ3ZGEwNDJlNGFhMjhhZjZjYzgxY2Y0OGFjNmNhZjM3ZGFiMzVmODhkYjk5M2FjY2I5ZGZlNTE2In19fQ==
+# remove the first part: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUv , this part is the same for all texture
+# and keep the other (this manipulation is optional, but better visibility)
+#
+# Plugin placeholder | without placeholderAPI
+# {money} is the only placeholder you can use to show how much more money the player need to purchase something
+#
+#
+#
+
+
+
+######################
+#+                  +#
+#   MENU SETTINGS    #
+#+                  +#
+######################
+
+menu-settings:
+
+  # title - appears as the title - REQUIRED
+  title: '&b&lExample menu'
+
+  # The radius distance between the player and the furthest item
+  radius-distance: 3
+
+  # command - OPTIONAL (you can remove this or set it to '')
+  # Bind multiple commands using ; (command: 'menu; m; me')
+  command: 'menu'
+
+  # previous menu - OPTIONAL
+  # A previous button will appear
+  previous-menu: ''
+
+    # custom permission menu - OPTIONAL
+    # if you do not use it, no permission is needed to open the menu
+  permission: ''
+
+  # angle - OPTIONAL
+  # This is the angle between each item displayed, increase this number to increase the distance between each items.
+  angle-step: 35
+
+  # slot change sound - OPTIONAL
+  # This is the sound when you change your item target
+  slot-change-sound:
+    name: ENTITY_ITEM_PICKUP
+    pitch: 2
+    volume: 0.1
+
+  # default and global click sound - OPTIONAL (remove if you do not want sound)
+  # This sound is played when you interact with any item
+  slot-click-sound:
+    name: ENTITY_CHICKEN_EGG
+    pitch: 2
+    volume: 1
+
+  # default and global click particle - OPTIONAL (remove if you do not want particle)
+  # This particle is played when you interact with any item
+  slot-click-particle:
+    name: END_ROD
+    speed: 0.1
+    offsetX: 0.5
+    offsetY: 0.5
+    offsetZ: 0.5
+    amount: 5
+
+
+  # open-with-item - OPTIONAL
+  # The menu will open only right-clicking with red wool
+  open-with-item:
+    id: 'SLIME_BALL'
+    name: 'Example Menu'
+
+
+#If you add skull texture parameter you can set any ID you want
+#Check the tutorial for skull texture
+bar-items:
+  coins:
+    COMMAND: 'tell: you have %money%'
+    NAME: '&e%money% $'
+    LORE: '&eYou have %money% dollars'
+    SKULL-TEXTURE: 'MTI5NWYwMmRjZmM3MzJiMzU4OTdlZmQ0MWMxYTkzODJhMDNjOTdjYTc1YWQ1OTUyNGVhZTNjMTY5ZjJjIn19fQ=='
+
+
+  close:
+    COMMAND: 'close:'
+    NAME: '&cClose'
+    LORE: 'Example of multiple commands.'
+    SKULL-TEXTURE: 'M2VkMWFiYTczZjYzOWY0YmM0MmJkNDgxOTZjNzE1MTk3YmUyNzEyYzNiOTYyYzk3ZWJmOWU5ZWQ4ZWZhMDI1In19fQ=='
+
+
+
+
+
+######################
+#+                  +#
+#       ITEMS        #
+#+                  +#
+######################
+
+
+test-multiple-command:
+  COMMAND: 'console: say Did you know that...; console: say you can run multiple commands?;'
+  NAME: '&eCommands'
+  LORE: '&bExample of multiple commands.'
+  SKULL-TEXTURE: 'MzUxNzhjMzU1MmNhYjZiYjk3OGE4YWIyZDNiYzlkNmMxZjc0OWZmOWU3Y2FhZmUwNjljYjMzM2M5MTg5YyJ9fX0='
+
+
+permission:
+  COMMAND: 'tell: &aYou have the correct permission!'
+  NAME: '&cPermission'
+  LORE: '&cTo use this item, you need the'
+  SKULL-TEXTURE: 'YjMzNTk4NDM3ZTMxMzMyOWViMTQxYTEzZTkyZDliMDM0OWFhYmU1YzY0ODJhNWRkZTdiNzM3NTM2MzRhYmEifX19'
+  PERMISSION: 'prodigygui.permission'
+  PERMISSION-MESSAGE: 'You don''t have the correct permission!'
+
+spawncmd:
+  COMMAND: 'Spawn'
+  NAME: '&6/spawn'
+  LORE: '&6It justs executes /spawn'
+  SKULL-TEXTURE: 'OTQ1MmFiYjk1MjhiYzNhZDQ4ZmYyYmI1MjU2YmY4YzBmZDE0NGZhYmZlNGM4ZTI4ZWJmMmVmMjllZTE1ZjkzNyJ9fX0='
+
+test-from-console:
+  COMMAND: 'console: say Hello %player_displayname%!'
+  NAME: '&fConsole.'
+  LORE: 'It broadcasts your name with the command /say.'
+  ID: iron_block
+
+
+test-as-op:
+  COMMAND: 'op: say Hello world!'
+  NAME: '&6Op Command'
+  LORE: '&6Be careful with this type of commands.'
+  ID: command_block
+
+
+#You can find any place holder here: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders
+test-with-placeholder:
+  COMMAND: 'tell: &9Online players: &f%server_online%/%server_max_players%; tell: &9Your name: &f%player_displayname%; tell: &9The world you are in: &f%player_world%'
+  NAME: '&7PlaceHolder'
+  LORE: '&7Placeholders will be replaced when the item'
+  SKULL-TEXTURE: 'M2MzNWZiZTg1ZmMxZjYxMGM0OGU4YmIyOGY3OTU5YWJjNDE4NTMyZWQzOTFmMmYxODc0OTQ0NDZjMzU4NzUzIn19fQ=='
+
+
+economy-give:
+  COMMAND: 'tell: &aYou have paid 50$ for this command!'
+  NAME: '&eEconomy'
+  LORE: '&eThis command will be executed'
+  SKULL-TEXTURE: 'ZTM2ZTk0ZjZjMzRhMzU0NjVmY2U0YTkwZjJlMjU5NzYzODllYjk3MDlhMTIyNzM1NzRmZjcwZmQ0ZGFhNjg1MiJ9fX0='
+  PRICE: 50
+
+talking-head:
+  COMMAND: 'tell: This is a simple message, without using commands!'
+  NAME: '&aTell'
+  LORE: '&7It tells you something without commands.'
+  SKULL-TEXTURE: "YTExNmU2OWE4NDVlMjI3ZjdjYTFmZGRlOGMzNTdjOGM4MjFlYmQ0YmE2MTkzODJlYTRhMWY4N2Q0YWU5NCJ9fX0="
+
+
+menu-close-no-commands-no-lore:
+  NAME: '&cClose'
+  COMMAND: 'close:'
+  LORE: '&cClose the menu'
+  SKULL-TEXTURE: 'MTQxMmQyZWMzZDQ1ODEyY2ZkYWMwYjg1NmRlODdmMWQzODM4YzFjNTA5ODM2ZmYyMWEwYTVjZDQ3Yzc5MDY5ZiJ9fX0='
+
+#List of particles: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html
+#Don't use colorable particles
+custom-particle:
+  COMMAND: 'tell: nice particle !'
+  NAME: '&5Cauldron'
+  LORE: '&5Nice cauldron !'
+  SKULL-TEXTURE: 'Zjk1NWJkNTExNjM1YTc3ZTYxNmEyNDExMmM5ZmM0NTdiMjdjOGExNDZhNWU2ZGU3MjdmMTdlOTg5ODgyIn19fQ=='
+  PARTICLE:
+    name: SPELL_WITCH
+    speed: 0.1
+    offsetX: 0.5
+    offsetY: 0.5
+    offsetZ: 0.5
+    amount: 5
+
+#Colorable particles:
+#  REDSTONE
+#  SPELL_MOB
+#  SPELL_MOB_AMBIENT
+custom-colored-particle:
+  COMMAND: 'tell: nice colored particle !'
+  NAME: '&6Projector'
+  LORE: '&6Display orange particle !'
+  SKULL-TEXTURE: 'ZTE4ZmQ0NzJmMTQ2YTdkNmU1ZGM5NDIzNDI4MWVhMDM5NGUzZjgxMzM5OTU0MDRmMjJiYjhmOTAyY2VlNzdlOCJ9fX0='
+  PARTICLE:
+    name: REDSTONE
+    red: 255
+    green: 128
+    blue: 0
+    radius: 1.5
+    amount: 5
+
+#Sound list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+custom-click-sound:
+  NAME: '&fSound'
+  LORE: '&lPlay Cool sound'
+  SKULL-TEXTURE: 'NTM1OTZmZDdiZTZiNzQ2M2U3ZDJjYzQ1ODQ0NWU2YTBhOWExODNkOGY0Y2ZjYzgwMTE4YmE3MTNhN2RkMTgifX19'
+  SOUND:
+    name: BLOCK_NOTE_BLOCK_HARP
+    pitch: 0.5
+    volume: 1
+  PARTICLE:
+    name: NOTE
+    speed: 0.1
+    offsetX: 0.5
+    offsetY: 0.5
+    offsetZ: 0.5
+    amount: 5
