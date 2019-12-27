@@ -1,8 +1,10 @@
 package fr.cocoraid.prodigygui.nms.wrapper.living;
 
+import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import fr.cocoraid.prodigygui.nms.EIDGen;
 import fr.cocoraid.prodigygui.nms.wrapper.packet.*;
 import fr.cocoraid.prodigygui.utils.UtilMath;
@@ -19,6 +21,22 @@ import java.util.Optional;
 public abstract class WrappedEntityLiving {
 
 
+    private static WrappedDataWatcher.Serializer
+            itemSerializer,
+            intSerializer,
+            byteSerializer,
+            stringSerializer,
+            booleanSerializer;
+
+    static {
+        if (VersionChecker.isHigherOrEqualThan(VersionChecker.v1_9_R1)) {
+            itemSerializer = WrappedDataWatcher.Registry.get(MinecraftReflection.getItemStackClass());
+            intSerializer = WrappedDataWatcher.Registry.get(Integer.class);
+            byteSerializer = WrappedDataWatcher.Registry.get(Byte.class);
+            stringSerializer = WrappedDataWatcher.Registry.get(String.class);
+            booleanSerializer = WrappedDataWatcher.Registry.get(Boolean.class);
+        }
+    }
 
     private WrapperPlayServerSpawnEntityLiving spawnPacket;
     private WrapperPlayServerEntityDestroy destroyPacket;
@@ -137,27 +155,23 @@ public abstract class WrappedEntityLiving {
     }
 
 
-    public void setCustomName(String name) {
-        if(VersionChecker.isHigherOrEqualThan(VersionChecker.v1_14_R1)) {
-            Optional<?> opt = Optional.of(WrappedChatComponent.fromChatMessage(name)[0].getHandle());
-            dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(2, WrappedDataWatcher.Registry.getChatComponentSerializer(true)), opt);
 
-        } else if(VersionChecker.isHigherOrEqualThan(VersionChecker.v1_13_R1)) {
+    public void setCustomName(String name) {
+
+        if(VersionChecker.isHigherOrEqualThan(VersionChecker.v1_13_R1)) {
             dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(2,
                             WrappedDataWatcher.Registry.getChatComponentSerializer(true))
                     , Optional.ofNullable(WrappedChatComponent.fromChatMessage(name)[0].getHandle()));
         }
         else {
-            setDataWatcherObject(String.class, 2, name);
+            dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(2, stringSerializer), name);
         }
     }
 
 
     public void setCustomNameVisible(boolean visible) {
-        if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-            setDataWatcherObject(Byte.class,3,(byte) (visible ? 1 : 0));
-        else
-            setDataWatcherObject(Boolean.class,3,visible);
+        dataWatcher.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(3, booleanSerializer), visible);
+
 
     }
     public void setInvisible(boolean invisible) {
@@ -170,23 +184,15 @@ public abstract class WrappedEntityLiving {
     public void equip(EnumWrappers.ItemSlot slot, ItemStack item) {
         WrapperPlayServerEntityEquipment equipPacket = equipments.get(slot);
         equipPacket.setItem(item);
-        if(slot == EnumWrappers.ItemSlot.HEAD) {
-            if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-                equipPacket.setSlot(4);
-            else equipPacket.setSlot(slot);
-        } else equipPacket.setSlot(slot);
+        equipPacket.setSlot(slot);
         equipPacket.sendPacket(player);
     }
 
 
 
     public void setDataWatcherObject(Class<?> type, int objectIndex, Object object) {
-        if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3)) {
-            dataWatcher.setObject(objectIndex,object);
-        } else {
-            WrappedDataWatcher.WrappedDataWatcherObject watcherObject = new WrappedDataWatcher.WrappedDataWatcherObject(objectIndex, WrappedDataWatcher.Registry.get(type));
-            dataWatcher.setObject(watcherObject, object);
-        }
+        WrappedDataWatcher.WrappedDataWatcherObject watcherObject = new WrappedDataWatcher.WrappedDataWatcherObject(objectIndex, WrappedDataWatcher.Registry.get(type));
+        dataWatcher.setObject(watcherObject, object);
 
     }
 

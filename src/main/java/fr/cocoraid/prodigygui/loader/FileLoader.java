@@ -4,11 +4,11 @@ import fr.cocoraid.prodigygui.ProdigyGUI;
 import fr.cocoraid.prodigygui.threedimensionalgui.ThreeDimensionalMenu;
 import fr.cocoraid.prodigygui.threedimensionalgui.itemdata.*;
 import fr.cocoraid.prodigygui.utils.PluginFile;
-import fr.cocoraid.prodigygui.utils.particle.CompParticle;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.mineacademy.remain.model.CompMaterial;
 
 
 import java.io.File;
@@ -167,7 +167,7 @@ public class FileLoader {
             menu.setCommand(list);
         }
         if (file.isString(OPEN_ITEM_MATERIAL)) {
-            menu.setOpenItem(CompMaterial.fromString(file.getString(OPEN_ITEM_MATERIAL).toUpperCase()).toMaterial());
+            menu.setOpenItem(Material.valueOf(file.getString(OPEN_ITEM_MATERIAL).toUpperCase()));
         }
         if(file.isInt(MENU_ANGLE_STEP))
             menu.setAngleStep(file.getInt(MENU_ANGLE_STEP));
@@ -194,7 +194,7 @@ public class FileLoader {
         ConfigurationSection sectionParticle = file.getConfigurationSection(mainpath);
         if(sectionParticle != null) {
             ParticleData data;
-            CompParticle particle = CompParticle.valueOf(sectionParticle.getString(PARTICLE_NAME));
+            Particle particle = Particle.valueOf(sectionParticle.getString(PARTICLE_NAME));
 
             if(ColoredParticleData.getColorableParticles().contains(particle)) {
                 ColoredParticleData coloredData = new ColoredParticleData(particle);
@@ -232,7 +232,7 @@ public class FileLoader {
     private SoundData soundDataConverter(PluginFile file, String mainpath) {
         ConfigurationSection section = file.getConfigurationSection(mainpath);
         if (section != null) {
-            SoundData soundData = new SoundData(section.getString(SOUND_NAME));
+            SoundData soundData = new SoundData(Sound.valueOf(section.getString(SOUND_NAME)));
             if(section.isDouble(SOUND_VOLUME))
                 soundData.setVolume((float)section.getDouble(SOUND_VOLUME));
             if(section.isDouble(SOUND_PITCH))
@@ -271,7 +271,7 @@ public class FileLoader {
 
                 ItemData itemdata = null;
                 if(s.isString(ID)) {
-                    itemdata = new ItemData(s.getString(NAME),  CompMaterial.fromString(s.getString(ID).toUpperCase()).toMaterial());
+                    itemdata = new ItemData(s.getString(NAME),  Material.valueOf(s.getString(ID).toUpperCase()));
                 } else if(s.isSet(SKULL_TEXTURE)) {
                     itemdata = new ItemData(s.getString(NAME),  s.getString(SKULL_TEXTURE));
                 } else {
@@ -307,7 +307,7 @@ public class FileLoader {
             ConfigurationSection s = file.getConfigurationSection(subSectionName);
             ItemData itemdata = null;
             if(s.isString(ID)) {
-                itemdata = new ItemData(s.getString(NAME), CompMaterial.fromString(s.getString(ID).toUpperCase()).toMaterial());
+                itemdata = new ItemData(s.getString(NAME), Material.valueOf(s.getString(ID).toUpperCase()));
             } else if(s.isSet(SKULL_TEXTURE)) {
                 itemdata = new ItemData(s.getString(NAME),  s.getString(SKULL_TEXTURE));
             } else {

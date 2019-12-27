@@ -24,17 +24,6 @@
                     </execution>
                 </executions>
 
-                <configuration>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <!-- If you already use a shade plugin only use the following code and paste it into it -->
-                    <relocations>
-                        <relocation>
-                            <pattern>org.mineacademy.remain</pattern>
-                            <shadedPattern>fr.cocoraid.prodigygui</shadedPattern>
-                        </relocation>
-                    </relocations>
-
-                </configuration>
             </plugin>
 
 
@@ -54,19 +43,20 @@
 
     <repositories>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>placeholderapi</id>
+            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
+
     </repositories>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.github.kangarko</groupId>
-            <artifactId>Remain</artifactId>
-            <version>3.2.0</version> <!-- change to the latest version -->
-            <scope>compile</scope>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.9.2</version>
+            <scope>provided</scope>
         </dependency>
+
 
     </dependencies>
 

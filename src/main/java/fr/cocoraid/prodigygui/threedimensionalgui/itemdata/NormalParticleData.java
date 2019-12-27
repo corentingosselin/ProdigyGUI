@@ -1,13 +1,13 @@
 package fr.cocoraid.prodigygui.threedimensionalgui.itemdata;
 
-import fr.cocoraid.prodigygui.utils.particle.CompParticle;
+import org.bukkit.Particle;
 
 public class NormalParticleData extends ParticleData {
 
     private double offsetX,offsetY,offsetZ = 0;
     private double speed = 0;
 
-    public NormalParticleData(CompParticle particle) {
+    public NormalParticleData(Particle particle) {
         super(particle);
 
     }

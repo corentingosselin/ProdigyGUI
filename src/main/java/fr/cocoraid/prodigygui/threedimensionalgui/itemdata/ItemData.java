@@ -4,7 +4,6 @@ import fr.cocoraid.prodigygui.utils.CC;
 import fr.cocoraid.prodigygui.utils.SkullCreator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.mineacademy.remain.model.CompMaterial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +37,7 @@ public class ItemData {
 
     public ItemData(String displayname,  Material ID) {
         this.displayname = CC.colored(displayname);
-        this.displayItem = CompMaterial.fromString(ID.name()).toItem();
+        this.displayItem = new ItemStack(ID);
     }
 
     public ItemData(String displayname,  String skulltexture) {

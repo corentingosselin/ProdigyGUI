@@ -1,6 +1,5 @@
 package fr.cocoraid.prodigygui.threedimensionalgui.itemdata;
 
-import fr.cocoraid.prodigygui.utils.particle.CompParticle;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Particle;
 
@@ -11,16 +10,16 @@ import java.util.List;
 public class ColoredParticleData extends ParticleData {
 
 
-    private static List<CompParticle> colorableParticles = new ArrayList<>(Arrays.asList(
-            CompParticle.REDSTONE,
-            CompParticle.SPELL_MOB,
-            CompParticle.SPELL_MOB_AMBIENT
+    private static List<Particle> colorableParticles = new ArrayList<>(Arrays.asList(
+            Particle.REDSTONE,
+            Particle.SPELL_MOB,
+            Particle.SPELL_MOB_AMBIENT
     ));
 
     private int r,g,b = 0;
     private double radius = 0.5;
 
-    public ColoredParticleData(CompParticle particle) {
+    public ColoredParticleData(Particle particle) {
         super(particle);
         Validate.isTrue(colorableParticles.contains(particle));
         this.amount = 0;
@@ -61,7 +60,7 @@ public class ColoredParticleData extends ParticleData {
         return r;
     }
 
-    public static List<CompParticle> getColorableParticles() {
+    public static List<Particle> getColorableParticles() {
         return colorableParticles;
     }
 }

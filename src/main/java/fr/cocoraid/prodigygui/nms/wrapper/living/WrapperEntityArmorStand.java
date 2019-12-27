@@ -12,20 +12,31 @@ public class WrapperEntityArmorStand extends WrappedEntityLiving {
     private boolean noBasePlate = true;
     private boolean marker = false;
 
-    private static int armorIndex = VersionChecker.isLowerOrEqualThan(VersionChecker.v1_9_R2) ? 10 : 11;
+    private static int armorIndex;
+    static {
+        if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_9_R2))
+            armorIndex = 10;
+        else if(VersionChecker.isHigherOrEqualThan(VersionChecker.v1_15_R1))
+            armorIndex = 14;
+        else if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_14_R1))
+            armorIndex = 11;
+    }
     private static int headPosIndex = VersionChecker.isLowerOrEqualThan(VersionChecker.v1_9_R2) ? 11 : 12;
 
-    private static byte markerMask = (byte) (VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R2) ? 0x16 : 0x10);
+    private static byte markerMask = (byte) 0x10;
 
 
     //current 1.14.2
     private static int id = 1;
     static {
-      if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_12_R1)) {
+        if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_12_R1)) {
             id = 30;
         }
 
     }
+
+
+
 
 
 
@@ -62,6 +73,6 @@ public class WrapperEntityArmorStand extends WrappedEntityLiving {
 
     public void setNoBasePlate(boolean noBasePlate) {
         this.noBasePlate = noBasePlate;
-       setDataWatcherObject(Byte.class,armorIndex, (byte) ((small ? 0x01 : 0) | (noBasePlate ? 0x08 : 0) | (marker ? markerMask : 0)));
+        setDataWatcherObject(Byte.class,armorIndex, (byte) ((small ? 0x01 : 0) | (noBasePlate ? 0x08 : 0) | (marker ? markerMask : 0)));
     }
 }

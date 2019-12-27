@@ -23,7 +23,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mineacademy.remain.Remain;
 
 import java.io.File;
 import java.util.logging.Level;
@@ -47,7 +46,6 @@ public class ProdigyGUI extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        Remain.setPlugin(this);
         ConsoleCommandSender c = Bukkit.getServer().getConsoleSender();
         metrics = new Metrics(this);
 
@@ -88,7 +86,13 @@ public class ProdigyGUI extends JavaPlugin {
         ProdigyGUIPlayer.getProdigyPlayers().values().stream().filter(pp -> pp.getThreeDimensionGUI() != null && pp.getThreeDimensionGUI().isSpawned()).forEach(pp -> {
             pp.getThreeDimensionGUI().closeGui();
         });
-
+        try {
+            config.save();
+        }
+        catch(final InvalidConfigurationException ex) {
+            ex.printStackTrace();
+            getLogger().log(Level.SEVERE, "Oooops ! Something went wrong while saving the configuration !");
+        }
     }
 
     private void loadConfiguration() {
@@ -108,8 +112,49 @@ public class ProdigyGUI extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (command.getName().equalsIgnoreCase("prodigygui")) {
+
+            if(args.length == 1) {
+                if(args[0].equalsIgnoreCase("reload")) {
+
+                    if(sender instanceof Player && !((Player)sender).hasPermission("prodigygui.reload")) {
+                        sender.sendMessage("§cYou do not have the permission !");
+                        return false;
+                    }
+                    ProdigyGUIPlayer.getProdigyPlayers().values().stream().filter(pp -> pp.getThreeDimensionGUI() != null && pp.getThreeDimensionGUI().isSpawned()).forEach(pp -> {
+                        pp.getThreeDimensionGUI().closeGui();
+                    });
+
+                    try {
+                        config.save();
+                    }
+                    catch(final InvalidConfigurationException ex) {
+                        ex.printStackTrace();
+                        getLogger().log(Level.SEVERE, "Oooops ! Something went wrong while saving the configuration !");
+                    }
+                    loadConfiguration();
+
+                    ConsoleCommandSender c = Bukkit.getServer().getConsoleSender();
+                    if(!LanguageLoader.getLanguages().containsKey(config.language.toLowerCase())) {
+                        c.sendMessage("§c Language not found ! Please check your language folder");
+                    } else
+                        language = LanguageLoader.getLanguage(config.language.toLowerCase());
+                    c.sendMessage(CC.d_green + "Language: " + (language == null ? "english" : config.language.toLowerCase()));
+                    if(language == null)
+                        language = LanguageLoader.getLanguage("english");
+                    ThreeDimensionalMenu.getMenus().clear();
+                    new FileLoader(this);
+                    if(sender instanceof Player)
+                        ((Player)sender).sendMessage("§bConfiguration reloaded !");
+                    else
+                        c.sendMessage("§bConfiguration reloaded !");
+
+
+                }
+            }
+
+
             //prodigygui open <menu> <yawRotation> <x> <y> <z> <playername>
-            if (args.length == 7) {
+           else if (args.length == 7) {
                 if(args[0].equalsIgnoreCase("open")) {
 
                     if(sender instanceof Player) {

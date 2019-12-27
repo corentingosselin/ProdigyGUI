@@ -23,7 +23,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Retrieve entity ID.
-	 * 
+	 *
 	 * @return The current EID
 	 */
 	public int getEntityID() {
@@ -32,7 +32,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Set entity ID.
-	 * 
+	 *
 	 * @param value - new value.
 	 */
 	public void setEntityID(int value) {
@@ -41,7 +41,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity.
-	 * 
+	 *
 	 * @param world - the current world of the entity.
 	 * @return The entity.
 	 */
@@ -51,7 +51,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Retrieve the entity.
-	 * 
+	 *
 	 * @param event - the packet event.
 	 * @return The entity.
 	 */
@@ -63,27 +63,18 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 
 	public void setX(double value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getIntegers().write(1, (int) Math.floor(value * 32.0D));
-		else
-			handle.getDoubles().write(0, value);
+		handle.getDoubles().write(0, value);
 	}
 
 
 	public void setY(double value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getIntegers().write(2, (int) Math.floor(value * 32.0D));
-		else
-			handle.getDoubles().write(1, value);
+		handle.getDoubles().write(1, value);
 	}
 
 
 
 	public void setZ(double value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getIntegers().write(3, (int) Math.floor(value * 32.0D));
-		else
-			handle.getDoubles().write(2, value);
+		handle.getDoubles().write(2, value);
 	}
 
 
@@ -104,7 +95,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Retrieve the yaw of the current entity.
-	 * 
+	 *
 	 * @return The current Yaw
 	 */
 	public float getYaw() {
@@ -113,7 +104,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Set the yaw of the current entity.
-	 * 
+	 *
 	 * @param value - new yaw.
 	 */
 	public void setYaw(float value) {
@@ -122,7 +113,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Retrieve the pitch of the current entity.
-	 * 
+	 *
 	 * @return The current pitch
 	 */
 	public float getPitch() {
@@ -131,7 +122,7 @@ public class WrapperPlayServerEntityTeleport extends AbstractPacket {
 
 	/**
 	 * Set the pitch of the current entity.
-	 * 
+	 *
 	 * @param value - new pitch.
 	 */
 	public void setPitch(float value) {

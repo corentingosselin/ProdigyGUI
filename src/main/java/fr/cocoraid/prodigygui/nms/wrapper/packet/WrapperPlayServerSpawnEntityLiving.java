@@ -69,15 +69,6 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 		return getEntity(event.getPlayer().getWorld());
 	}
 
-	public UUID getUniqueId() {
-		return handle.getUUIDs().read(0);
-	}
-
-	public void setUniqueId(UUID value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getUUIDs().write(0, value);
-	}
-
 	/**
 	 * Set entity ID.
 	 *
@@ -128,10 +119,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setX(double value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getIntegers().write(2, (int) Math.floor(value * 32.0D));
-		else
-			handle.getDoubles().write(0, value);
+		handle.getDoubles().write(0, value);
 	}
 
 	/**
@@ -151,10 +139,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setY(double value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getIntegers().write(3, (int) Math.floor(value * 32.0D));
-		else
-			handle.getDoubles().write(1, value);
+		handle.getDoubles().write(1, value);
 	}
 
 	/**
@@ -174,10 +159,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new value.
 	 */
 	public void setZ(double value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getIntegers().write(4, (int) Math.floor(value * 32.0D));
-		else
-			handle.getDoubles().write(2, value);
+		handle.getDoubles().write(2, value);
 	}
 
 	/**
@@ -233,10 +215,7 @@ public class WrapperPlayServerSpawnEntityLiving extends AbstractPacket {
 	 * @param value - new yaw.
 	 */
 	public void setHeadPitch(float value) {
-		if(VersionChecker.isLowerOrEqualThan(VersionChecker.v1_8_R3))
-			handle.getBytes().write(1, (byte) (value * 256.0F / 360.0F));
-		else
-			handle.getBytes().write(2, (byte) (value * 256.0F / 360.0F));
+		handle.getBytes().write(2, (byte) (value * 256.0F / 360.0F));
 
 	}
 

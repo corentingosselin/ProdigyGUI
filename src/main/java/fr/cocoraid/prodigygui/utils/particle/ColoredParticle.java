@@ -7,7 +7,6 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
-import org.mineacademy.remain.internal.ParticleInternals;
 
 public class ColoredParticle extends ParticleBuilder {
 
@@ -38,15 +37,14 @@ public class ColoredParticle extends ParticleBuilder {
 
     @Override
     public void sendParticle(Player player) {
-
         if(VersionChecker.isHigherOrEqualThan(VersionChecker.v1_13_R1)) {
-            if (particle == CompParticle.REDSTONE) {
+            if (particle == Particle.REDSTONE) {
                 Particle.DustOptions dustOptions = new Particle.DustOptions(color, 1);
                 for (int i = 0; i < amount; i++) {
                     Location loc = radius > 0 ? location.clone().add(UtilMath.randomRange(-radius, radius), UtilMath.randomRange(-radius, radius), UtilMath.randomRange(-radius, radius)) : location;
                     player.spawnParticle(Particle.REDSTONE, loc, 0, dustOptions);
                 }
-            } else if (particle == CompParticle.SPELL_MOB_AMBIENT || particle == CompParticle.SPELL_MOB) {
+            } else if (particle == Particle.SPELL_MOB_AMBIENT || particle == Particle.SPELL_MOB) {
                 double red = color.getRed() / 255D;
                 double green = color.getGreen() / 255D;
                 double blue = color.getBlue() / 255D;
@@ -54,11 +52,6 @@ public class ColoredParticle extends ParticleBuilder {
                     Location loc = radius > 0 ? location.clone().add(UtilMath.randomRange(-radius, radius), UtilMath.randomRange(-radius, radius), UtilMath.randomRange(-radius, radius)) : location;
                     player.spawnParticle(Particle.SPELL_MOB, loc, 0, red, green, blue, 1);
                 }
-            }
-        } else {
-            for (int i = 0; i < amount; i++) {
-                Location loc = radius > 0 ? location.clone().add(UtilMath.randomRange(-radius, radius), UtilMath.randomRange(-radius, radius), UtilMath.randomRange(-radius, radius)) : location;
-                ParticleInternals.valueOf(particle.name()).sendColor(player, loc, color);
             }
         }
     }

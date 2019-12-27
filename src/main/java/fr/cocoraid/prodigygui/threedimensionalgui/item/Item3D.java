@@ -1,22 +1,17 @@
 package fr.cocoraid.prodigygui.threedimensionalgui.item;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
-import fr.cocoraid.prodigygui.ProdigyGUI;
 import fr.cocoraid.prodigygui.bridge.PlaceholderAPIBridge;
 import fr.cocoraid.prodigygui.nms.wrapper.living.WrapperEntityArmorStand;
 import fr.cocoraid.prodigygui.nms.wrapper.living.WrapperEntitySlime;
 import fr.cocoraid.prodigygui.threedimensionalgui.itemdata.ItemData;
-import fr.cocoraid.prodigygui.utils.CC;
-import fr.cocoraid.prodigygui.utils.SkullCreator;
 import fr.cocoraid.prodigygui.utils.VersionChecker;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.mineacademy.remain.model.CompMaterial;
+
 
 /**
  * Created by cocoraid on 02/07/2016.
@@ -80,10 +75,10 @@ public class Item3D {
     public Item3D setPosition(Location loc) {
 
         if (item.getType().isBlock()
-                || item.getType() == CompMaterial.fromString("PLAYER_HEAD").toMaterial()
-                || item.getType() == CompMaterial.fromString("CREEPER_HEAD").toMaterial()
-                || item.getType() == CompMaterial.fromString("DRAGON_HEAD").toMaterial()
-                || item.getType() == CompMaterial.fromString("ZOMBIE_HEAD").toMaterial()
+                || item.getType() == Material.PLAYER_HEAD
+                || item.getType() == Material.CREEPER_HEAD
+                || item.getType() == Material.DRAGON_HEAD
+                || item.getType() == Material.ZOMBIE_HEAD
                 ) {
             setSmall();
         }

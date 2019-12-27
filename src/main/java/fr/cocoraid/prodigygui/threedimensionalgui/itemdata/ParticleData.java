@@ -1,13 +1,13 @@
 package fr.cocoraid.prodigygui.threedimensionalgui.itemdata;
 
-import fr.cocoraid.prodigygui.utils.particle.CompParticle;
+import org.bukkit.Particle;
 
 public abstract class ParticleData {
 
-    private CompParticle particle;
+    private Particle particle;
     protected int amount = 1;
 
-    public ParticleData(CompParticle particle) {
+    public ParticleData(Particle particle) {
         this.particle = particle;
     }
 
@@ -19,7 +19,7 @@ public abstract class ParticleData {
         return amount;
     }
 
-    public CompParticle getParticle() {
+    public Particle getParticle() {
         return particle;
     }
 }
