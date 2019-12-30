@@ -47,8 +47,8 @@ menu-settings:
   # A previous button will appear
   previous-menu: ''
 
-    # custom permission menu - OPTIONAL
-    # if you do not use it, no permission is needed to open the menu
+  # custom permission menu - OPTIONAL
+  # if you do not use it, no permission is needed to open the menu
   permission: ''
 
   # angle - OPTIONAL

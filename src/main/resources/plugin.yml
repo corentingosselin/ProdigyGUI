@@ -1,5 +1,5 @@
 name: ProdigyGui
-version: 1.0.4
+version: 1.0.41
 api-version: 1.13
 author: cocoraid
 depend: [ProtocolLib]

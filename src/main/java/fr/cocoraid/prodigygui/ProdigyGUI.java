@@ -108,6 +108,30 @@ public class ProdigyGUI extends JavaPlugin {
     }
 
 
+
+    private ThreeDimensionalMenu checkConditions(CommandSender sender, String[] args) {
+        if(sender instanceof Player) {
+            Player p = (Player) sender;
+            if(!p.hasPermission("prodigygui.other.open")) {
+                p.sendMessage(language.no_permission);
+                return null;
+            }
+        }
+
+        if(Bukkit.getPlayer(args[2]) == null || (Bukkit.getPlayer(args[2]) != null && !Bukkit.getPlayer(args[2]).isOnline())) {
+            sender.sendMessage("Player " + args[2] + " is not online");
+            return null;
+        }
+
+        ThreeDimensionalMenu menu  = ThreeDimensionalMenu.getMenus().stream()
+                .filter(m -> m.getFileName().replace(".yml", "").equalsIgnoreCase(args[1])).findAny()
+                .orElseGet(() -> null);
+        if(menu == null) {
+            sender.sendMessage("§cMenu " + args[1] + " could not be found !");
+            return null;
+        } else return menu;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -152,103 +176,75 @@ public class ProdigyGUI extends JavaPlugin {
                 }
             }
 
+            //prodigygui open <menu> <player>
+            if(args.length == 3) {
+                ThreeDimensionalMenu menu = checkConditions(sender, args);
+                if(menu == null) return false;
+
+                new ThreeDimensionGUI(Bukkit.getPlayer(args[2]), menu)
+                        .openGui();
+            }
+
+
 
             //prodigygui open <menu> <yawRotation> <x> <y> <z> <playername>
-           else if (args.length == 7) {
+            else if (args.length == 7) {
                 if(args[0].equalsIgnoreCase("open")) {
 
-                    if(sender instanceof Player) {
-                        Player p = (Player) sender;
-                        if(!p.hasPermission("prodigygui.other.open")) {
-                            p.sendMessage(language.no_permission);
-                            return false;
-                        }
-                    }
-
-                    ThreeDimensionalMenu menu  = ThreeDimensionalMenu.getMenus().stream()
-                            .filter(m -> m.getFileName().replace(".yml", "").equalsIgnoreCase(args[1])).findAny()
-                            .orElseGet(() -> null);
-                    if(menu == null) {
-                        sender.sendMessage("§cMenu " + args[1] + " could not be found !");
-                        return false;
-                    }
+                    ThreeDimensionalMenu menu = checkConditions(sender, args);
+                    if (menu == null) return false;
 
                     try {
                         Double.valueOf(args[2]);
                     } catch (Exception e) {
-                        sender.sendMessage("§cThe yaw rotation " + args[1] + " must be integer !");
-                        sender.sendMessage("§c/prodigygui open <menu> <yawRotation> <x> <y> <z> <playername>");
+                        sender.sendMessage("§cThe yaw rotation " + args[3] + " must be integer !");
+                        sender.sendMessage("§c/prodigygui open <menu> <playername> <yawRotation> <x> <y> <z> ");
                         return false;
                     }
+
+                    try {
+                        Double.valueOf(args[4]);
+                        Double.valueOf(args[5]);
+                        Double.valueOf(args[6]);
+                    } catch (Exception e) {
+                        sender.sendMessage("§cThe y,y,z positions " + args[1] + " must be integer !");
+                        sender.sendMessage("§c/prodigygui open <menu> <playername> <yawRotation> <x> <y> <z>");
+                        return false;
+                    }
+
+
+                    new ThreeDimensionGUI(Bukkit.getPlayer(args[2]), menu)
+                            .setRotation(Float.valueOf(args[3]))
+                            .setCenter(Double.valueOf(args[4]), Double.valueOf(args[5]), Double.valueOf(args[6]))
+                            .openGui();
+
+                }
+                //prodigygui open <menu> <playername> <yawRotation>
+            } else if(args.length == 4) {
+                if(args[0].equalsIgnoreCase("open")) {
+                    ThreeDimensionalMenu menu = checkConditions(sender, args);
+                    if(menu == null) return false;
 
                     try {
                         Double.valueOf(args[3]);
-                        Double.valueOf(args[4]);
-                        Double.valueOf(args[5]);
                     } catch (Exception e) {
-                        sender.sendMessage("§cThe yaw rotation " + args[1] + " must be integer !");
-                        sender.sendMessage("§c/prodigygui open <menu> <yawRotation> <x> <y> <z> <playername>");
+                        sender.sendMessage("§cThe yaw rotation " + args[3] + " must be integer !");
+                        sender.sendMessage("§c/prodigygui open <menu> <playername> <yawRotation>");
                         return false;
                     }
 
-                    if(Bukkit.getPlayer(args[6]) != null && Bukkit.getPlayer(args[6]).isOnline()) {
-
-                        new ThreeDimensionGUI(Bukkit.getPlayer(args[6]),menu)
-                                .setRotation(Float.valueOf(args[2]))
-                                .setCenter(Double.valueOf(args[3]),Double.valueOf(args[4]),Double.valueOf(args[5]))
-                                .openGui();
-
-                    } else {
-                        sender.sendMessage("Player " + args[6] + " is not online");
-                        return false;
-                    }
+                    Player p = Bukkit.getPlayer(args[2]);
+                    new ThreeDimensionGUI(p, menu)
+                            .setRotation(Float.valueOf(args[3]))
+                            .openGui();
 
 
-
-                }
-                //prodigygui open <menu> <yawRotation> <playername>
-            } else if(args.length == 4) {
-                if(args[0].equalsIgnoreCase("open")) {
-                    if (sender instanceof Player) {
-                        Player p = (Player) sender;
-                        if (!p.hasPermission("prodigygui.other.open")) {
-                            p.sendMessage(language.no_permission);
-                            return false;
-                        }
-                    }
-
-                    ThreeDimensionalMenu menu = ThreeDimensionalMenu.getMenus().stream()
-                            .filter(m -> m.getFileName().replace(".yml", "").equalsIgnoreCase(args[1])).findAny()
-                            .orElseGet(() -> null);
-                    if (menu == null) {
-                        sender.sendMessage("§cMenu " + args[1] + " could not be found !");
-                        return false;
-                    }
-
-                    try {
-                        Double.valueOf(args[2]);
-                    } catch (Exception e) {
-                        sender.sendMessage("§cThe yaw rotation " + args[1] + " must be integer !");
-                        sender.sendMessage("§c/prodigygui open <menu> <yawRotation> <playername>");
-                        return false;
-                    }
-
-
-                    if (Bukkit.getPlayer(args[3]) != null && Bukkit.getPlayer(args[3]).isOnline()) {
-
-                        new ThreeDimensionGUI(Bukkit.getPlayer(args[3]), menu)
-                                .setRotation(Float.valueOf(args[2]))
-                                .openGui();
-
-                    } else {
-                        sender.sendMessage("Player " + args[3] + " is not online");
-                        return false;
-                    }
                 }
 
             } else {
-                sender.sendMessage("§c/prodigygui open <menu> <yawRotation> <x> <y> <z> <playername>");
-                sender.sendMessage("§c/prodigygui open <menu> <yawRotation> <playername>");
+                sender.sendMessage("§c/prodigygui open <menu> <playername> <yawRotation> <x> <y> <z>");
+                sender.sendMessage("§c/prodigygui open <menu> <playername> <yawRotation>");
+                sender.sendMessage("§c/prodigygui open <menu> <playername>");
             }
 
         }
