@@ -205,6 +205,7 @@ public abstract class WrappedEntityLiving {
     public WrappedDataWatcher getDataWatcher() {
         return dataWatcher;
     }
+    
 
     public void setLocation(Location location) {
         spawnPacket.setPitch(location.getPitch());

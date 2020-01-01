@@ -32,6 +32,7 @@ public class ItemData {
     private SoundData soundData;
     private ParticleData particleData;
     private String lore;
+    private int rotation;
 
 
 
@@ -115,5 +116,13 @@ public class ItemData {
 
     public SoundData getSoundData() {
         return soundData;
+    }
+
+    public int getRotation() {
+        return rotation;
+    }
+
+    public void setRotation(int rotation) {
+        this.rotation = rotation;
     }
 }

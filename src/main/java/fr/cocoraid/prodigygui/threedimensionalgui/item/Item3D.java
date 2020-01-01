@@ -90,8 +90,9 @@ public class Item3D {
         }
 
         double tosubDisplay = 0.3;
-
-        itemDisplay.setLocation(itemLoc.clone().subtract(0,tosubDisplay,0));
+        Location l = itemLoc.clone().subtract(0,tosubDisplay,0);
+        l.setYaw(l.getYaw() + data.getRotation());
+        itemDisplay.setLocation(l);
 
         itemDisplay.setMarker(true);
         itemDisplay.spawn();

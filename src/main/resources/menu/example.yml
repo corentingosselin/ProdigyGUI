@@ -45,6 +45,7 @@ menu-settings:
 
   # previous menu - OPTIONAL
   # A previous button will appear
+  # example: previousmenu.yml
   previous-menu: ''
 
   # custom permission menu - OPTIONAL

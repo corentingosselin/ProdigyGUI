@@ -253,7 +253,8 @@ public class FileLoader {
             PERMISSION = "PERMISSION",
             PERMISSION_MESSAGE = "PERMISSION-MESSAGE",
             SOUND = "SOUND",
-            PARTICLE = "PARTICLE";
+            PARTICLE = "PARTICLE",
+            ROTATION = "ROTATION";
 
 
 
@@ -285,7 +286,7 @@ public class FileLoader {
                 itemdata.setNopermissionmessage(s.getString(PERMISSION_MESSAGE));
                 itemdata.setParticleData(particleDataConverter(file,item + "." + PARTICLE));
                 itemdata.setSoundData(soundDataConverter(file,item + "." + SOUND));
-
+                itemdata.setRotation(s.getInt(ROTATION));
                 itemdatas.add(itemdata);
 
 
@@ -322,6 +323,7 @@ public class FileLoader {
             itemdata.setNopermissionmessage(s.getString(PERMISSION_MESSAGE));
             itemdata.setParticleData(particleDataConverter(file,subSectionName + "." + PARTICLE));
             itemdata.setSoundData(soundDataConverter(file,subSectionName + "." + SOUND));
+            itemdata.setRotation(s.getInt(ROTATION));
             itemdatas.add(itemdata);
         }
         return itemdatas;
