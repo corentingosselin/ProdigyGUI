@@ -226,3 +226,9 @@ custom-click-sound:
     offsetY: 0.5
     offsetZ: 0.5
     amount: 5
+
+custom-rotation:
+  NAME: '&7Rotated'
+  LORE: '&lComputer 90 degrees rotation'
+  SKULL-TEXTURE: 'NjYzNmVhNWIzYmQ3OTRkNTE5ZGZkNWQzYjM1ZWU4ZmU3YjgzNWU3OTgzNGYxYzM5ZWUyYmY3NDk1ZDc4MDBkMyJ9fX0='
+  ROTATION: 90

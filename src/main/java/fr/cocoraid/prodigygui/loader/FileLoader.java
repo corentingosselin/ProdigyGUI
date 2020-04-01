@@ -289,7 +289,6 @@ public class FileLoader {
                 itemdata.setRotation(s.getInt(ROTATION));
                 itemdatas.add(itemdata);
 
-
             }
 
         }

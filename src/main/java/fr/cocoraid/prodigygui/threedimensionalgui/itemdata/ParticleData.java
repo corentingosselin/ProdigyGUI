@@ -6,6 +6,8 @@ public abstract class ParticleData {
 
     private Particle particle;
     protected int amount = 1;
+    private boolean onSelect = false;
+    private boolean loop = false;
 
     public ParticleData(Particle particle) {
         this.particle = particle;

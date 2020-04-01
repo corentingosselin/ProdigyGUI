@@ -1,28 +1,31 @@
 package fr.cocoraid.prodigygui.bridge;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 public class PlaceholderAPIBridge {
 
-	private static PlaceholderAPIPlugin placeholderAPI;
+	private static boolean placeholderAPI = false;
 
-	public static boolean setupPlugin() {
+
+	public PlaceholderAPIBridge() {
+
+	}
+
+	public boolean setupPlugin() {
 		Plugin placeholderPlugin = Bukkit.getPluginManager().getPlugin("PlaceholderAPI");
-
 		if (placeholderPlugin == null) {
+			this.placeholderAPI = false;
 			return false;
 		}
-
-		placeholderAPI = (PlaceholderAPIPlugin) placeholderPlugin;
+		this.placeholderAPI = true;
 		return true;
 	}
 
 	public static boolean hasValidPlugin() {
-		return placeholderAPI != null;
+		return placeholderAPI;
 	}
 
 	public static boolean hasPlaceholders(String message) {

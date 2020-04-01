@@ -32,9 +32,6 @@ public class ThreeDimensionalGUITask {
                 i%=100;
 
                 ProdigyGUIPlayer.getProdigyPlayers().values().forEach(p -> {
-
-
-
                     ThreeDimensionGUI gui = p.getThreeDimensionGUI();
                     Player player = p.getPlayer();
                     if (player != null && p.getPlayer().isOnline() && gui != null && gui.isSpawned()) {

@@ -55,7 +55,9 @@ public class ProdigyGUI extends JavaPlugin {
             getLogger().warning("Vault with a compatible economy plugin was not found! Icons with a PRICE or commands that give money will not work.");
         }
 
-        if (PlaceholderAPIBridge.setupPlugin()) {
+        PlaceholderAPIBridge placeholderAPIBridge = new PlaceholderAPIBridge();
+        placeholderAPIBridge.setupPlugin();
+        if (placeholderAPIBridge.hasValidPlugin()) {
             getLogger().info("Hooked PlaceholderAPI");
         }
 
@@ -122,6 +124,7 @@ public class ProdigyGUI extends JavaPlugin {
             sender.sendMessage("Player " + args[2] + " is not online");
             return null;
         }
+
 
         ThreeDimensionalMenu menu  = ThreeDimensionalMenu.getMenus().stream()
                 .filter(m -> m.getFileName().replace(".yml", "").equalsIgnoreCase(args[1])).findAny()
