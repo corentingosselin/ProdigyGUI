@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ProtocolLib (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../serveur/1.16.2/plugins/ProtocolLib (2).jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

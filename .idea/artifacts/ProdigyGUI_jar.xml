@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ProdigyGUI:jar">
+    <output-path>$PROJECT_DIR$/../../../../serveur/1.16.2/plugins</output-path>
+    <root id="archive" name="ProdigyGUI.jar">
+      <element id="module-output" name="ProdigyGUI" />
+    </root>
+  </artifact>
+</component>

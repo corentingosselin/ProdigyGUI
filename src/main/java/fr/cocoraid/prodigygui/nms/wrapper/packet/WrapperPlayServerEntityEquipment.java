@@ -3,11 +3,17 @@ package fr.cocoraid.prodigygui.nms.wrapper.packet;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.EnumWrappers.ItemSlot;
 import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.Pair;
 import fr.cocoraid.prodigygui.nms.AbstractPacket;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	public static final PacketType TYPE =
@@ -84,6 +90,7 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 		return handle.getItemModifier().read(0);
 	}
 
+
 	/**
 	 * Set Item.
 	 * 
@@ -91,5 +98,14 @@ public class WrapperPlayServerEntityEquipment extends AbstractPacket {
 	 */
 	public void setItem(ItemStack value) {
 		handle.getItemModifier().write(0, value);
+	}
+
+	private List<Pair<ItemSlot, ItemStack>> itemList = new ArrayList<>();
+	public void setItem(ItemSlot slot, ItemStack stack) {
+		Pair<ItemSlot, ItemStack> itemPair = new Pair<>(slot, stack);
+		Optional<Pair<ItemSlot, ItemStack>> optPair = this.itemList.stream().filter(entry -> entry.getFirst() == slot).findFirst();
+		if(optPair.isPresent()) this.itemList.remove(optPair.get());
+		this.itemList.add(itemPair);
+		handle.getSlotStackPairLists().write(0, this.itemList);
 	}
 }

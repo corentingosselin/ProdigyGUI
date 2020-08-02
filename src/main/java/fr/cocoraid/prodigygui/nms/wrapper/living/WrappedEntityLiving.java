@@ -183,8 +183,12 @@ public abstract class WrappedEntityLiving {
 
     public void equip(EnumWrappers.ItemSlot slot, ItemStack item) {
         WrapperPlayServerEntityEquipment equipPacket = equipments.get(slot);
-        equipPacket.setItem(item);
-        equipPacket.setSlot(slot);
+        if(VersionChecker.isHigherOrEqualThan(VersionChecker.v1_16_R1)) {
+            equipPacket.setItem(slot, item);
+        } else {
+            equipPacket.setItem(item);
+            equipPacket.setSlot(slot);
+        }
         equipPacket.sendPacket(player);
     }
 

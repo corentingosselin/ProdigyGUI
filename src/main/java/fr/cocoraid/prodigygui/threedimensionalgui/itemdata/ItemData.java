@@ -2,6 +2,8 @@ package fr.cocoraid.prodigygui.threedimensionalgui.itemdata;
 
 import fr.cocoraid.prodigygui.utils.CC;
 import fr.cocoraid.prodigygui.utils.SkullCreator;
+import fr.cocoraid.prodigygui.utils.UtilItem;
+import fr.cocoraid.prodigygui.utils.VersionChecker;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -43,7 +45,10 @@ public class ItemData {
 
     public ItemData(String displayname,  String skulltexture) {
         this.displayname = CC.colored(displayname);
-        this.displayItem = SkullCreator.itemFromBase64(skulltexture);
+        if(VersionChecker.isHigherOrEqualThan(VersionChecker.v1_16_R1)) {
+            this.displayItem = UtilItem.skullTextured(skulltexture);
+        } else
+            this.displayItem = SkullCreator.itemFromBase64(skulltexture);
     }
 
     public void setCommand(String command) {
